@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import mysql.connector
 import pandas as pd
@@ -11,7 +12,7 @@ def get_connection():
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="REMOVED_SECRET",   
+        password=os.environ.get("DB_PASSWORD"),
         database="sample_library"
     )
     return conn

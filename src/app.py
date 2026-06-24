@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine, text
@@ -5,12 +6,14 @@ from datetime import date, timedelta
 
 # --------------------------------------------------------
 # DATABASE CONNECTION
+# Credentials are read from environment variables.
+# Copy .env.example to .env and set your own values.
 # --------------------------------------------------------
-schema   = "lianes_library"
-host     = "127.0.0.1"
-user     = "root"
-password = "REMOVED_SECRET"   # <-- change this
-port     = 3306
+schema   = os.environ.get("DB_NAME", "lianes_library")
+host     = os.environ.get("DB_HOST", "127.0.0.1")
+user     = os.environ.get("DB_USER", "root")
+password = os.environ.get("DB_PASSWORD")
+port     = os.environ.get("DB_PORT", "3306")
 
 con = f'mysql+pymysql://{user}:{password}@{host}:{port}/{schema}'
 engine = create_engine(con)

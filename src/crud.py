@@ -1,17 +1,20 @@
+import os
 import mysql.connector
 import pandas as pd
 
 # --------------------------------------------------------
 # DATABASE CONNECTION
+# Credentials are read from environment variables.
+# Copy .env.example to .env and set your own values.
 # --------------------------------------------------------
 
 def get_connection():
     """Create and return a connection to the database."""
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="REMOVED_SECRET",   
-        database="sample_library"
+        host=os.environ.get("DB_HOST", "localhost"),
+        user=os.environ.get("DB_USER", "root"),
+        password=os.environ.get("DB_PASSWORD"),
+        database=os.environ.get("DB_NAME", "sample_library"),
     )
     return conn
 
